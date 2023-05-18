@@ -1,66 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+import * as me from 'https://esm.run/melonjs@13';
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <style>
-            /* CSS */
-
-        </style>
-
-        <title>Title</title>
-    </head>
-    <body>
-        <!-- HTML -->
+import game from './game.js';
+import resources from './resources.js';
+import PlayerEntity from './entities/player.js';
+import { SlimeEnemyEntity, FlyEnemyEntity } from './entities/enemies.js';
+import CoinEntity from './entities/coin.js';
+import PlayScreen from './screens/play.js';
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            // JS
-
-
-
-
-
-
-
-            class PlayScreen extends me.Stage {
-            onResetEvent()
-      // load a level
-        me.level.load("Map1");
-
-        // reset the score
-        game.data.score = 0;
-
-        // add our HUD to the game world
-        if (typeof this.HUD === "undefined") {
-            this.HUD = new UIContainer();
-        }
-        me.game.world.addChild(this.HUD);
-
-        // display if debugPanel is enabled or on mobile
-        if ((me.plugins.debugPanel && me.plugins.debugPanel.panel.visible) || me.device.touch) {
-            if (typeof this.virtualJoypad === "undefined") {
-                this.virtualJoypad = new VirtualJoypad();
-            }
-            me.game.world.addChild(this.virtualJoypad);
-        }
-
-    };
-        // play some music
-        me.audio.playTrack("dst-gameforest");
-
-
-
-//             export default function onload() {
+/**
+ *
+ * Initialize the application
+ */
+export default function onload() {
 
     // init the video
     if (!me.video.init(800, 600, {parent : "screen", scaleMethod : "flex-width", renderer : me.video.AUTO, preferWebGL1 : false, subPixel : false })) {
         alert("Your browser does not support HTML5 canvas.");
-
+        return;
     }
 
     // initialize the Debug Panel
@@ -120,9 +77,4 @@
         // switch to PLAY state
         me.state.change(me.state.PLAY);
     });
-
-
-
-        </script>
-    </body>
-</html>
+}
